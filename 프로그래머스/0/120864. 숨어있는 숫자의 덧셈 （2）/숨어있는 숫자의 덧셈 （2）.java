@@ -15,7 +15,6 @@ class Solution {
             if(!num.equals(" ")){
                 word += num;
             }else if(!word.equals("")){
-                System.out.println("지금 들어옴 " + word);
                 answer += Integer.parseInt(word);
                 word = "";
             }
