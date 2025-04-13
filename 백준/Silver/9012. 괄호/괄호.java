@@ -10,7 +10,7 @@ public class Main {
 		int x = Integer.parseInt(in.nextLine());
 		
 		for(int i = 0; i<x; i++) {
-			String a = in.nextLine();
+			String a = in.next();
 			list.add(m.isVPS(a));
 		}
 		for(String s : list) {
