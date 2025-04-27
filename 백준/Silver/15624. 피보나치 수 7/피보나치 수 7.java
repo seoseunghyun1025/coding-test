@@ -1,28 +1,19 @@
-import java.util.*;
+import java.util.Scanner;
 
-public class Main{
-    public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
-        int n = in.nextInt();
-        long pre = 1, prepre = 1;
-        long answer = 0;
-        if(n == 0){
-            System.out.println(0);
-            return ;
-        }else if(n == 1){
-            System.out.println(pre);
-            return ;
-        }else if(n == 2){
-            System.out.println(pre);
-            return ;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        final int MOD = 1000000007;
+
+        long[] fib = new long[n + 10];
+        fib[0] = 0;
+        fib[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            fib[i] = (fib[i - 1] + fib[i - 2]) % MOD;
         }
 
-        for(int i = 3; i <= n; i++){
-            answer = pre + prepre;
-            prepre = pre;
-            pre = answer;
-        }
-        System.out.println(answer);
-        in.close();
+        System.out.println(fib[n]);
     }
 }
