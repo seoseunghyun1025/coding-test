@@ -8,12 +8,13 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		
 		int N = in.nextInt();
-		String[][] arr = new String[N][2];
+		String[][] arr = new String[N][3];
 		
  
 		for(int i = 0; i < N; i++) {
 			arr[i][0] = in.next();	// 나이
 			arr[i][1] = in.next();	// 이름
+			arr[i][2] = Integer.toString(i);	// 들어온순서
 		}
  
 		
@@ -21,7 +22,9 @@ public class Main {
 			// 나이순으로 정렬
 			@Override
 			public int compare(String[] s1, String[] s2) {
-				return Integer.parseInt(s1[0]) - Integer.parseInt(s2[0]);
+                return s1[0] != s2[0] ? Integer.parseInt(s1[0]) - Integer.parseInt(s2[0]) : 
+                    Integer.parseInt(s1[2]) - Integer.parseInt(s2[2]);
+				//return Integer.parseInt(s1[0]) - Integer.parseInt(s2[0]);
 			}
 			
 		});
