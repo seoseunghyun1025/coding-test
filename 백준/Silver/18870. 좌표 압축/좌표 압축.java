@@ -6,22 +6,24 @@ public class Main {
         Map<Integer,Integer> map = new TreeMap<>();
         int n = in.nextInt();
         int[] arr = new int[n];
+        int[] origin = new int[n];
         for(int i = 0; i < n; i++){
             arr[i] = in.nextInt();
-            map.put(arr[i], 0);
         }
+        origin = arr.clone();
         int count = 0;
-        for (int key : map.keySet()) {
-            map.put(key, count++);
+        Arrays.sort(arr);
+        for(int i = 0; i < n; i++){
+            if(!map.containsKey(arr[i])){
+                map.put(arr[i], count);
+                count++;
+            }
         }
-
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            sb.append(map.get(arr[i])).append(" ");
+        for(int key : origin){
+            sb.append(map.get(key)).append(" ");
         }
-
         System.out.println(sb);
-
         in.close();
     }
 }
