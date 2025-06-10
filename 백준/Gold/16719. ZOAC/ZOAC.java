@@ -1,42 +1,38 @@
-import java.util.*;
 import java.io.*;
- 
+
 public class Main {
-    static String str;
-    static boolean[] visited;
-    static StringBuilder sb = new StringBuilder();
-    
-    public static void main(String[] args) throws IOException {
+    static StringBuilder sb;
+    static String s;
+    static boolean visit[];
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        str = br.readLine();
-        visited = new boolean[str.length()];
-        
-        zoac(0, str.length() - 1);  // 처음 시작할 부분, 끝내는 부분
+        sb = new StringBuilder();
+        s = br.readLine();
+        visit = new boolean[s.length()];
+        zoac(0, s.length() - 1);
         System.out.println(sb);
     }
-    
-    private static void zoac(int left, int right) {  // 처음 시작할 부분, 끝내는 부분
-        if(left > right)    return;
-        
-        // 현재 문자열 中 사전식 순서가 가장 낮은 글자 찾기
-        int idx = left;
-        for(int i = left ; i <= right ; i++) {
-            if(str.charAt(idx) > str.charAt(i)) {
-                idx = i;
+
+    public static void zoac(int left, int right){
+        if(left > right){
+            return;
+        }
+        int min = left;
+        for(int i = left; i<=right; i++){
+            if(s.charAt(min) > s.charAt(i)){
+                min = i;
             }
         }
-        visited[idx] = true;
-        
-        for(int i = 0 ; i < str.length() ; i++) {
-            if(visited[i]) {
-                sb.append(str.charAt(i));
+        visit[min] = true;
+
+        for(int i = 0; i<s.length(); i++){
+            if(visit[i]){
+                sb.append(s.charAt(i));
             }
         }
         sb.append("\n");
-        
-        // 사전식 순서 맞추기 (반드시 재귀 이 순서로!)
-        zoac(idx + 1, right); // 현재 문자보다 뒤에 있는 문자열 탐색
-        zoac(left, idx - 1); // 현재 문자보다 앞에 있는 문자열 탐색
+
+        zoac(min + 1, right);
+        zoac(left, min - 1);
     }
 }
