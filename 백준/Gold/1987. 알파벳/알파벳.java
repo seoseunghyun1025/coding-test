@@ -1,46 +1,44 @@
+import java.io.*;
 import java.util.*;
- 
-public class Main {    
- 
-    static int r, c;
-    static int[][] board;
-    static int[] dx = {-1, 0, 1, 0};
-    static int[] dy = {0, 1, 0, -1};
-    static int max = 0;
-    static boolean[] alpha;
-    
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
- 
-        r = scan.nextInt();
-        c = scan.nextInt();
-        scan.nextLine();
-        
-        //board를 입력받는다.
-        board = new int[r][c];
-        for(int i = 0; i < r; i++) {
-            String str = scan.nextLine();
-            for(int j = 0; j < c; j++) {
-                board[i][j] = str.charAt(j) - 'A';
+
+public class Main {
+    static int board[][];
+    static boolean alpha[];
+    static int[] by = {-1, 0, 1, 0};
+    static int[] bx = {0, 1, 0, -1};
+    static int n;
+    static int m;
+    static int MAX = Integer.MIN_VALUE;
+    public static void main(String[] args) throws IOException{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        board = new int[n][m];
+        alpha = new boolean[26];
+
+        for(int i = 0; i < n; i++){
+            String s = br.readLine();
+            for(int j = 0; j < m; j++){
+                board[i][j] = s.charAt(j) - 'A';
             }
         }
-        
-        alpha = new boolean[26]; //알파벳을 이전에 방문했는지 여부 체크.
-        backtracking(0, 0, 1);
-        System.out.println(max);
+
+        backtracking(0,0,1);
+
+        System.out.println(MAX);
     }
-    
-    public static void backtracking(int x, int y, int len) {
-        alpha[board[x][y]] = true; 
-        max = Math.max(max, len);
-        
-        for(int i = 0; i < 4; i++) {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-            if(nx >= 0 && ny >= 0 && nx < r && ny < c) {
-                if(alpha[board[nx][ny]] == false) {
-                    backtracking(nx, ny, len + 1);
-                    alpha[board[nx][ny]] = false;
+    static void backtracking(int y, int x, int length){
+        alpha[board[y][x]] = true;
+        MAX = Math.max(length, MAX);
+        //사각 방향을 움직여야 됌 그래서 4번
+        for(int i = 0; i < 4; i++){
+            int ny = y + by[i];
+            int nx = x + bx[i];
+            if(ny >= 0 && nx >= 0 && ny < n && nx < m){
+                if(!alpha[board[ny][nx]]){
+                    backtracking(ny, nx, length + 1);
+                    alpha[board[ny][nx]] = false;
                 }
             }
         }
