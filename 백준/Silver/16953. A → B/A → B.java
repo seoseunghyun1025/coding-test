@@ -1,31 +1,29 @@
-import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.StringTokenizer;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        Queue<Long> que = new LinkedList<>();
+class Main {
+    public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] input = br.readLine().split(" ");
-        br.close();
-        long a = Long.parseLong(input[0]), b = Long.parseLong(input[1]);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int a = Integer.parseInt(st.nextToken()), b = Integer.parseInt(st.nextToken());
         int count = 0;
-        que.add(a);
-        while(!que.isEmpty()){
-            int size = que.size();
-            for(int i = 0; i<size; i++){
-                long tmp = que.poll();
-                if(tmp == b) {
-                    count++;
-                    System.out.println(count);
-                    return;
-                }
-                if(tmp * 2 <= b) que.add(tmp * 2);
-                if(tmp * 10 + 1 <= b) que.add(tmp * 10 + 1);
+        while(a < b){
+            if(b % 10 == 1){
+                b /= 10;
+            }else if(b % 2 == 0){
+                b /= 2;
+            }else {
+                break;
             }
             count++;
         }
-        System.out.println(-1);
+
+        if(a == b){
+            System.out.println(count + 1);
+        }else{
+            System.out.println(-1);
+        }
     }
 }
