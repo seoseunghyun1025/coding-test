@@ -15,15 +15,11 @@ public class Main {
 		for(int i = 0; i<t; i++) {
 			int n = Integer.parseInt(br.readLine());
 			int count = 0;
-			if(n != 0 && n % 2 == 0) {
-				for(int j = 2; j <= n / 2; j++) {
-					if(!prime[j]) {
-						if(!prime[n - j]) {
-							count++;
-						}
-					}
-				}	
-			}
+			for(int j = 2; j <= n / 2; j++) {
+				if(!prime[j] && !prime[n - j]) {
+					count++;
+				}
+			}	
 			sb.append(count).append("\n");
 		}		
 		System.out.println(sb);
